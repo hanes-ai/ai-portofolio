@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bot, Send, Sparkles, User, Loader2 } from 'lucide-react';
-import { aiPlaygroundInteractionStream } from '@/ai/flows/ai-playground-interaction';
+import { aiPlaygroundInteraction } from '@/ai/flows/ai-playground-interaction';
 
 export function AIPlayground() {
   const [input, setInput] = useState('');
@@ -22,11 +22,8 @@ export function AIPlayground() {
     setResponse(""); 
     
     try {
-      // Use the server action stream
-      const stream = await aiPlaygroundInteractionStream(input);
-      for await (const chunk of stream) {
-        setResponse((prev) => prev + chunk);
-      }
+      const result = await aiPlaygroundInteraction(input);
+      setResponse(result);
     } catch (error) {
       console.error('AI Playground Error:', error);
       setResponse("I'm sorry, I encountered an error while processing your request. Please check your connection and try again.");
