@@ -1,0 +1,103 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 225 15% 4%;
+    --foreground: 0 0% 98%;
+    --card: 225 15% 6%;
+    --card-foreground: 0 0% 98%;
+    --popover: 225 15% 5%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 215 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 285 93% 66%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 225 15% 12%;
+    --muted-foreground: 225 5% 70%;
+    --accent: 285 93% 66%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 225 15% 15%;
+    --input: 225 15% 15%;
+    --ring: 215 100% 60%;
+    --chart-1: 215 100% 60%;
+    --chart-2: 285 93% 66%;
+    --chart-3: 173 58% 39%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.75rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased selection:bg-primary/30;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-headline tracking-tight;
+  }
+}
+
+.glass {
+  @apply bg-background/40 backdrop-blur-xl border border-white/10;
+}
+
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-primary bg-[length:200%_auto] animate-gradient;
+}
+
+@keyframes gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient 8s ease infinite;
+}
+
+.grid-background {
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  @apply bg-background;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-muted rounded-full hover:bg-muted-foreground/30 transition-colors;
+}
+
+.spotlight-hover {
+  position: relative;
+  overflow: hidden;
+}
+
+.spotlight-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.spotlight-hover:hover::before {
+  opacity: 1;
+}
