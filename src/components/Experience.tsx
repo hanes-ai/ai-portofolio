@@ -100,16 +100,16 @@ export function Experience() {
   });
 
   useEffect(() => {
+    const defaultIds = new Set(DEFAULT_EXPERIENCES.map(e => e.id));
     const stored = localStorage.getItem('hanes_experiences');
-    let next: any[];
+    let adminAdded: any[] = [];
     if (stored) {
-      const storedExps = JSON.parse(stored);
-      const storedIds = new Set(storedExps.map((e: any) => e.id));
-      const newDefaults = DEFAULT_EXPERIENCES.filter(e => !storedIds.has(e.id));
-      next = newDefaults.length ? [...newDefaults, ...storedExps] : storedExps;
-    } else {
-      next = DEFAULT_EXPERIENCES;
+      try {
+        const storedExps = JSON.parse(stored);
+        adminAdded = storedExps.filter((e: any) => !defaultIds.has(e.id));
+      } catch {}
     }
+    const next = [...DEFAULT_EXPERIENCES, ...adminAdded];
     setExperiences(next);
     localStorage.setItem('hanes_experiences', JSON.stringify(next));
     setIsAdmin(localStorage.getItem('hanes_admin') === 'true');

@@ -95,16 +95,16 @@ export function Projects() {
   const categories = ['All', 'Agentic AI', 'Geospatial', 'Scraping', 'Multimodal'];
 
   useEffect(() => {
+    const defaultIds = new Set(DEFAULT_PROJECTS.map(p => p.id));
     const stored = localStorage.getItem('hanes_projects');
-    let next: any[];
+    let adminAdded: any[] = [];
     if (stored) {
-      const storedProjects = JSON.parse(stored);
-      const storedIds = new Set(storedProjects.map((p: any) => p.id));
-      const newDefaults = DEFAULT_PROJECTS.filter(p => !storedIds.has(p.id));
-      next = newDefaults.length ? [...storedProjects, ...newDefaults] : storedProjects;
-    } else {
-      next = DEFAULT_PROJECTS;
+      try {
+        const storedProjects = JSON.parse(stored);
+        adminAdded = storedProjects.filter((p: any) => !defaultIds.has(p.id));
+      } catch {}
     }
+    const next = [...DEFAULT_PROJECTS, ...adminAdded];
     setProjects(next);
     localStorage.setItem('hanes_projects', JSON.stringify(next));
     setIsAdmin(localStorage.getItem('hanes_admin') === 'true');
