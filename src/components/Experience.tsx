@@ -13,8 +13,8 @@ const DEFAULT_EXPERIENCES = [
   {
     id: '1',
     company: 'PT Verset Teknologi Nusantara',
-    role: 'AI Engineer',
-    period: '2025 - Present',
+    role: 'Lead AI Engineer',
+    period: 'July 2025 - Present',
     desc: `As an AI Engineer and technical lead, I am responsible for orchestrating end-to-end AI product development, from research and system architecture to deployment and production optimization. I lead cross-functional teams in building scalable AI solutions across backend services, LLM-based applications, multimodal generative AI, and full-stack platforms. My responsibilities include AI architecture design, agent orchestration, on-premise and cloud-based LLM deployment, infrastructure coordination, and performance optimization to ensure reliable, production-grade systems integrated into real-world workflows.
 
 Key Projects & Contributions
@@ -29,7 +29,7 @@ Key Projects & Contributions
     id: '2',
     company: 'PT Ebdesk Teknologi',
     role: 'AI Researcher',
-    period: '2023 - 2025',
+    period: 'August 2023 - June 2025',
     desc: `As an AI Researcher, I specialize in designing and developing LLM-powered systems, multi-agent architectures, and scalable AI data pipelines for production-grade applications, including SDIKTI-related data initiatives. I work closely with cross-functional teams to deliver end-to-end AI solutions spanning both NLP and computer vision domains.
 
 Key Projects & Contributions

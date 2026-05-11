@@ -85,7 +85,7 @@ export function AIPlayground() {
               ) : (
                 <div className="h-full flex flex-col items-center justify-center text-muted-foreground opacity-40 py-16">
                   <Sparkles className="w-12 h-12 mb-4 animate-pulse" />
-                  <p className="text-center max-w-xs">Ask about AI automation, LLMs, Computer Vision, or how I can help your project.</p>
+                  <p className="text-center max-w-xs">Ask about AI automation, LLMs, or how I can help your project.</p>
                 </div>
               )}
             </div>

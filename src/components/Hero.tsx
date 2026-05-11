@@ -92,11 +92,13 @@ export function Hero() {
           </p>
 
           <div className="flex flex-wrap gap-4 items-center justify-center lg:justify-start">
-            <Button size="lg" className="rounded-full px-8 md:px-10 h-14 gap-2 group shadow-xl shadow-primary/20 text-lg">
-              Explore Work <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            <Button asChild size="lg" className="rounded-full px-8 md:px-10 h-14 gap-2 group shadow-xl shadow-primary/20 text-lg">
+              <a href="#projects">
+                Explore Work <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="rounded-full px-8 md:px-10 h-14 glass hover:bg-white/5 transition-all text-lg">
-              Get in Touch
+            <Button asChild size="lg" variant="outline" className="rounded-full px-8 md:px-10 h-14 glass hover:bg-white/5 transition-all text-lg">
+              <a href="#contact">Get in Touch</a>
             </Button>
           </div>
         </motion.div>

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
+import { Github, Linkedin, Mail } from 'lucide-react';
 
 export function Contact() {
   return (
@@ -46,8 +46,18 @@ export function Contact() {
             </div>
 
             <div className="flex gap-4 mt-12">
-              {[Github, Twitter, Linkedin].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-lg glass flex items-center justify-center hover:text-primary transition-all">
+              {[
+                { Icon: Github, href: 'https://github.com/hannesegi', label: 'GitHub' },
+                { Icon: Linkedin, href: 'https://www.linkedin.com/in/yohanesegipratamayudoutomo', label: 'LinkedIn' },
+              ].map(({ Icon, href, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-10 h-10 rounded-lg glass flex items-center justify-center hover:text-primary transition-all"
+                >
                   <Icon className="w-5 h-5" />
                 </a>
               ))}

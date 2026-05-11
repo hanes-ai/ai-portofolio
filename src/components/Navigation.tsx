@@ -88,8 +88,8 @@ export function Navigation() {
                   </Button>
                 </Link>
               )}
-              <Button size="sm" className="rounded-full px-6 shadow-[0_0_20px_rgba(51,136,255,0.3)]">
-                Hire Me
+              <Button asChild size="sm" className="rounded-full px-6 shadow-[0_0_20px_rgba(51,136,255,0.3)]">
+                <a href="#contact">Hire Me</a>
               </Button>
             </div>
           </div>
@@ -132,7 +132,9 @@ export function Navigation() {
                       </Button>
                     </Link>
                   )}
-                  <Button className="w-full rounded-xl py-5 text-base">Hire Me</Button>
+                  <Button asChild className="w-full rounded-xl py-5 text-base">
+                    <a href="#contact" onClick={() => setIsOpen(false)}>Hire Me</a>
+                  </Button>
                 </div>
               </div>
             </motion.div>
