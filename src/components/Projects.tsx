@@ -86,12 +86,17 @@ export function Projects() {
 
   useEffect(() => {
     const stored = localStorage.getItem('hanes_projects');
+    let next: any[];
     if (stored) {
-      setProjects(JSON.parse(stored));
+      const storedProjects = JSON.parse(stored);
+      const storedIds = new Set(storedProjects.map((p: any) => p.id));
+      const newDefaults = DEFAULT_PROJECTS.filter(p => !storedIds.has(p.id));
+      next = newDefaults.length ? [...storedProjects, ...newDefaults] : storedProjects;
     } else {
-      setProjects(DEFAULT_PROJECTS);
-      localStorage.setItem('hanes_projects', JSON.stringify(DEFAULT_PROJECTS));
+      next = DEFAULT_PROJECTS;
     }
+    setProjects(next);
+    localStorage.setItem('hanes_projects', JSON.stringify(next));
     setIsAdmin(localStorage.getItem('hanes_admin') === 'true');
   }, []);
 
