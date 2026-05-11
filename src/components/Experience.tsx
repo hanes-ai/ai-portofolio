@@ -9,6 +9,48 @@ import { Textarea } from '@/components/ui/textarea';
 import { Plus, Trash2, Edit2, X, Briefcase } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+function parsePart(part: string): string {
+  const trimmed = part.trim();
+  if (!trimmed) return '';
+  const monthYear = trimmed.match(/^([A-Za-z]+)\s+(\d{4})$/);
+  if (monthYear) {
+    const monthIdx = MONTHS.findIndex(m => m.toLowerCase() === monthYear[1].toLowerCase());
+    if (monthIdx >= 0) return `${monthYear[2]}-${String(monthIdx + 1).padStart(2, '0')}`;
+  }
+  const yearOnly = trimmed.match(/^(\d{4})$/);
+  if (yearOnly) return `${yearOnly[1]}-01`;
+  return '';
+}
+
+function parsePeriod(period: string): { startMonth: string; endMonth: string; isPresent: boolean } {
+  if (!period) return { startMonth: '', endMonth: '', isPresent: false };
+  const parts = period.split(/\s*[-–—]\s*/);
+  const start = parsePart(parts[0] || '');
+  const endRaw = (parts[1] || '').trim();
+  const isPresent = /^(present|now|current)$/i.test(endRaw);
+  const end = isPresent ? '' : parsePart(endRaw);
+  return { startMonth: start, endMonth: end, isPresent };
+}
+
+function formatPart(ym: string): string {
+  const m = ym.match(/^(\d{4})-(\d{2})$/);
+  if (!m) return '';
+  const monthIdx = parseInt(m[2], 10) - 1;
+  if (monthIdx < 0 || monthIdx > 11) return '';
+  return `${MONTHS[monthIdx]} ${m[1]}`;
+}
+
+function formatPeriod(startMonth: string, endMonth: string, isPresent: boolean): string {
+  const start = formatPart(startMonth);
+  const end = isPresent ? 'Present' : formatPart(endMonth);
+  if (!start && !end) return '';
+  if (!end) return start;
+  if (!start) return end;
+  return `${start} - ${end}`;
+}
+
 const DEFAULT_EXPERIENCES = [
   {
     id: '1',
@@ -51,7 +93,9 @@ export function Experience() {
   const [formData, setFormData] = useState({
     company: '',
     role: '',
-    period: '',
+    startMonth: '',
+    endMonth: '',
+    isPresent: false,
     desc: ''
   });
 
@@ -78,11 +122,14 @@ export function Experience() {
 
   const handleOpenDialog = (exp: any = null) => {
     if (exp) {
+      const parsed = parsePeriod(exp.period || '');
       setEditingExp(exp);
       setFormData({
         company: exp.company,
         role: exp.role,
-        period: exp.period,
+        startMonth: parsed.startMonth,
+        endMonth: parsed.endMonth,
+        isPresent: parsed.isPresent,
         desc: exp.desc
       });
     } else {
@@ -90,7 +137,9 @@ export function Experience() {
       setFormData({
         company: '',
         role: '',
-        period: '',
+        startMonth: '',
+        endMonth: '',
+        isPresent: false,
         desc: ''
       });
     }
@@ -99,8 +148,10 @@ export function Experience() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const { startMonth, endMonth, isPresent, ...rest } = formData;
     const expData = {
-      ...formData,
+      ...rest,
+      period: formatPeriod(startMonth, endMonth, isPresent),
       id: editingExp ? editingExp.id : Date.now().toString()
     };
 
@@ -189,7 +240,41 @@ export function Experience() {
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Period</label>
-              <Input value={formData.period} onChange={e => setFormData({...formData, period: e.target.value})} placeholder="2022 - Present" className="bg-white/5" required />
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs text-muted-foreground">Start (month / year)</label>
+                  <Input
+                    type="month"
+                    value={formData.startMonth}
+                    onChange={e => setFormData({ ...formData, startMonth: e.target.value })}
+                    className="bg-white/5"
+                    required
+                  />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-xs text-muted-foreground">End (month / year)</label>
+                  <Input
+                    type="month"
+                    value={formData.endMonth}
+                    onChange={e => setFormData({ ...formData, endMonth: e.target.value })}
+                    disabled={formData.isPresent}
+                    className="bg-white/5 disabled:opacity-50"
+                    required={!formData.isPresent}
+                  />
+                </div>
+              </div>
+              <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer pt-1 select-none">
+                <input
+                  type="checkbox"
+                  checked={formData.isPresent}
+                  onChange={e => setFormData({ ...formData, isPresent: e.target.checked, endMonth: e.target.checked ? '' : formData.endMonth })}
+                  className="rounded accent-primary"
+                />
+                Currently working here (Present)
+              </label>
+              <p className="text-xs text-muted-foreground">
+                Preview: <span className="font-mono text-foreground">{formatPeriod(formData.startMonth, formData.endMonth, formData.isPresent) || '—'}</span>
+              </p>
             </div>
             <div className="space-y-2">
               <label className="text-sm font-medium">Description</label>
