@@ -8,6 +8,8 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Bot, Send, Sparkles, User, Loader2 } from 'lucide-react';
 import { aiPlaygroundInteraction } from '@/ai/flows/ai-playground-interaction';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export function AIPlayground() {
   const [input, setInput] = useState('');
@@ -24,9 +26,10 @@ export function AIPlayground() {
     try {
       const result = await aiPlaygroundInteraction(input);
       setResponse(result);
-    } catch (error) {
+    } catch (error: any) {
       console.error('AI Playground Error:', error);
-      setResponse("I'm sorry, I encountered an error while processing your request. Please check your connection and try again.");
+      const detail = error?.message ? ` (${error.message})` : '';
+      setResponse(`I'm sorry, I encountered an error while processing your request.${detail}`);
     } finally {
       setLoading(false);
       setInput('');
@@ -69,8 +72,26 @@ export function AIPlayground() {
                   <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center shrink-0">
                     <Bot className="w-4 h-4 text-primary" />
                   </div>
-                  <div className="bg-white/5 p-5 rounded-2xl rounded-tl-none border border-white/5 text-sm leading-relaxed whitespace-pre-wrap flex-grow min-h-[60px] shadow-sm">
-                    {response}
+                  <div className="bg-white/5 p-5 rounded-2xl rounded-tl-none border border-white/5 flex-grow min-h-[60px] shadow-sm overflow-x-auto">
+                    {response && (
+                      <div className="prose prose-invert prose-sm max-w-none
+                        prose-headings:font-headline prose-headings:text-foreground
+                        prose-h1:text-xl prose-h2:text-lg prose-h3:text-base prose-h4:text-sm
+                        prose-p:text-muted-foreground prose-p:leading-relaxed
+                        prose-strong:text-foreground
+                        prose-a:text-primary hover:prose-a:underline
+                        prose-code:text-primary prose-code:bg-white/5 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:before:content-none prose-code:after:content-none
+                        prose-pre:bg-black/40 prose-pre:border prose-pre:border-white/10
+                        prose-ul:text-muted-foreground prose-ol:text-muted-foreground
+                        prose-li:marker:text-primary
+                        prose-blockquote:border-l-primary prose-blockquote:text-muted-foreground prose-blockquote:not-italic
+                        prose-table:border prose-table:border-white/10 prose-table:rounded-lg prose-table:overflow-hidden
+                        prose-th:bg-white/5 prose-th:text-foreground prose-th:p-2 prose-th:text-left prose-th:border prose-th:border-white/10
+                        prose-td:p-2 prose-td:border prose-td:border-white/10 prose-td:text-muted-foreground
+                        prose-hr:border-white/10">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{response}</ReactMarkdown>
+                      </div>
+                    )}
                     {loading && !response && (
                       <div className="flex items-center gap-2 text-primary/60">
                         <Loader2 className="w-4 h-4 animate-spin" />
