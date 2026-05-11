@@ -65,7 +65,7 @@ const DEFAULT_PROJECTS = [
   },
   {
     id: '6',
-    title: 'OpenClaw',
+    title: 'Automation Debugging',
     category: 'Agentic AI',
     desc: 'An AI-powered debug automation system that turns incident response into a conversational workflow on Telegram. OpenClaw monitors application logs, exceptions, runtime errors, and infrastructure signals — then pushes intelligent diagnostics to a Telegram channel in real time, including root-cause analysis, suggested fixes, code patches, and remediation steps. Engineers can chat directly with the bot to request stack-trace explanations, trigger remote checks, run safe automated actions, and approve patches — all without leaving Telegram. Designed for ops teams that need 24/7 debugging assistance with zero context-switching.',
     img: 'https://placehold.co/800x600/111215/D255F9/png?text=OpenClaw+%E2%80%A2+Debug+Agent',
