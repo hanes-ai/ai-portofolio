@@ -32,6 +32,36 @@ const DEFAULT_PROJECTS = [
     tags: ['Neo4j', 'Knowledge Graph', 'Python', 'AI Agents'],
     github: '',
     link: ''
+  },
+  {
+    id: '3',
+    title: 'AI Report Generator',
+    category: 'Agentic AI',
+    desc: 'An AI-driven document intelligence system that transforms unstructured documents (PDFs, scans, forms, reports) into structured, actionable insights. Leverages Docling for robust OCR and layout-aware parsing, embeds extracted content into Qdrant for high-speed semantic search and retrieval, and uses LLMs to synthesize structured reports, executive summaries, and contextual Q&A. Supports multi-document ingestion, cross-reference retrieval with citation tracking, table & figure extraction, and template-based report generation — purpose-built for analysts, researchers, and operations teams handling large volumes of unstructured content.',
+    img: 'https://placehold.co/800x600/111215/3388FF/png?text=AI+Report+Generator',
+    tags: ['LLM', 'Docling', 'OCR', 'Qdrant', 'Semantic Search', 'RAG'],
+    github: '',
+    link: ''
+  },
+  {
+    id: '4',
+    title: 'Social Media Narrative Agent',
+    category: 'Multimodal',
+    desc: 'A multimodal AI agent that automatically transforms raw content into engaging social media narratives. Accepts text+image and text+video inputs — analyzing visual cues, on-screen text, scene transitions, motion, and audio/transcript context — then crafts platform-tailored narratives such as captions, storyboards, scripts, and post threads. Combines vision-language models for deep content understanding with LLM-driven stylistic generation, enabling brands and creators to scale content production across Instagram, TikTok, YouTube, and X while preserving a consistent voice, tone, and brand identity.',
+    img: 'https://placehold.co/800x600/111215/D255F9/png?text=Multimodal+Narrative+Agent',
+    tags: ['Multimodal LLM', 'Vision-Language', 'Video Understanding', 'AI Agents', 'Social Media'],
+    github: '',
+    link: ''
+  },
+  {
+    id: '5',
+    title: 'GeoProx Engine',
+    category: 'Geospatial',
+    desc: 'A geospatial intelligence platform that collects, normalizes, and indexes Points-of-Interest (POI) data at scale, then exposes proximity queries by category — e.g., "find the nearest supermarket within 2 km, plus all schools, hospitals, ATMs, and cafes around it." Built with PostGIS spatial indexing, automated scraping & enrichment pipelines, and a structured category taxonomy that supports filtered nearest-neighbor search, radius queries, isochrone analysis, and density heatmaps. Useful for retail site selection, urban planning, logistics, delivery optimization, and consumer-facing location apps.',
+    img: 'https://placehold.co/800x600/111215/3388FF/png?text=GeoProx+%E2%80%A2+Proximity+Engine',
+    tags: ['Geospatial', 'PostGIS', 'Python', 'POI', 'Spatial Index'],
+    github: '',
+    link: ''
   }
 ];
 
